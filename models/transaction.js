@@ -1,26 +1,30 @@
 import mongoose from 'mongoose';
 
-const transactionSchema = new mongoose.Schema({
-
-    userid:{
+const transtionSchema = new mongoose.Schema({
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-
-    evcBalance:{
+    amount: {
         type: Number,
-        default: 0,
+        required: true,
+
     },
 
-    bankbalance:{
-         type: Number,
-         default: 0,
+    status: {  
+        type: String,
+        enum: ['pending', 'completed', 'failed'],
+        default: 'pending'
+
     },
 
-    currancy:{
-        type : String,
-        default: 'USD',
+    reference:{
+        type: String,
+        unique: true,
+        required: true
 
-    }
+    },
     }, {timestamps: true});
+
+    export default mongoose.model('Transaction', transtionSchema);
