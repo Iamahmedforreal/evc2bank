@@ -5,6 +5,7 @@ import { logger } from './middleware/logger.js';
 import errorHandler from './middleware/errorHandling.js';
 import connectMongoDB from './utils/mongodb.js';
 import { NODE_ENV, PORT } from './config/env.js';
+import authRouter from './routes/authRouter.js';
 
 
 
@@ -14,6 +15,10 @@ app.use(express.json());
 // Middleware to log requests
 app.use(logger);
 
+
+
+// Routes
+app.use('/api/auth', authRouter);
 
 
 app.get('/', (req, res) => {
