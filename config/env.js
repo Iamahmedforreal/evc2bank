@@ -1,35 +1,18 @@
 import dotenv from 'dotenv';
-
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const envFilee = `.env.${process.env.NODE_ENV || 'development'}`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-dotenv.config({path: path.resolve(process.cwd(), envFilee)});
+// Dynamically choose the env file based on NODE_ENV
+const envFile = process.env.NODE_ENV
+  ? `.env.${process.env.NODE_ENV}`
+  : '.env';
 
-function getEnv(key , fallback ) {
+dotenv.config({ path: path.resolve(__dirname, '..', envFile) });
 
-    const value = process.env[key];
-    console.log(`Key: ${key}, Value: ${value}`);
-    if (value === undefined){
-        if(fallback !== undefined) return fallback;
-        throw new Error(`Environment variable ${key} is not defined`);
-    }
-    return value;
-
-}
-
-export const config = {
-  nodeEnv: getEnv("NODE_ENV", "development"),
-  port: getEnv("PORT", 4000),
-
-  postgres: {
-    host: getEnv("POSTGRES_HOST", "localhost"),
-    port: getEnv("POSTGRES_PORT", 5432),
-    user: getEnv("POSTGRES_USER", "postgres"),
-    password: getEnv("POSTGRES_PASSWORD", "password"),
-    database: getEnv("POSTGRES_DB", "mydb"),
-  },
-
-
-};
-
+export const MONGO_URL = process.env.MONGO_URL;
+export const PORT = process.env.PORT;
+export const NODE_ENV = process.env.NODE_ENV;
+export const JWT_SECRET = process.env.JWT_SECRET;
