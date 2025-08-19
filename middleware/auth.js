@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { config } from '../config/env.js';
+import { config, JWT_SECRET } from '../config/env.js';
 
 export const authMiddleware = (req, res, next) => {
 
@@ -13,7 +13,7 @@ export const authMiddleware = (req, res, next) => {
         return next(error);
     }
     try{
-        const decoded = jwt.verify(token, config.jwtSecret);
+        const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         next();
     }

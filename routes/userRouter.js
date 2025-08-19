@@ -1,39 +1,20 @@
-import express from "express";
-import { protect } from "../middleware/authMiddleware.js";
-import { permissionMiddleware } from "../middleware/permissionMiddleware.js";
+import express from 'express';
+import { authMiddleware } from '../middleware/auth.js';
+import { permissionMiddleware } from '../middleware/permissionMiddleware.js'; 
 
-const router = express.Router();
+export  const router = express.Router();
 
-// Customer sends money from EVC → Bank
-router.post("/transfer/evc-to-bank", 
-  protect, 
-  permissionMiddleware("transfer:evc_to_bank"), 
-  (req, res) => {
-    res.json({ message: "EVC → Bank transfer successful" });
+router.get('/profile', authMiddleware, (req, res) => {
+
+    res.status(200).json({id: req.user.id , role: req.user.role});
+
 });
 
-// Customer sends money from Bank → EVC
-router.post("/transfer/bank-to-evc", 
-  protect, 
-  permissionMiddleware("transfer:bank_to_evc"), 
-  (req, res) => {
-    res.json({ message: "Bank → EVC transfer successful" });
+router.get('/admin', authMiddleware, permissionMiddleware('admin'), (req, res) => {
+    res.status(200).json({message: 'Welcome to the admin area', user: req.user});
 });
 
-// Bank system checks balance
-router.get("/bank/balance", 
-  protect, 
-  permissionMiddleware("query:balance"), 
-  (req, res) => {
-    res.json({ balance: 1000 });
+router.get('/merchant', authMiddleware, permissionMiddleware('merchant'), (req, res) => {
+    res.status(200).json({message: 'Welcome to the merchant area', user: req.user});
 });
 
-// Admin approves transfer
-router.post("/admin/approve-transfer", 
-  protect, 
-  permissionMiddleware("approve:transfer"), 
-  (req, res) => {
-    res.json({ message: "Transfer approved" });
-});
-
-export default router;

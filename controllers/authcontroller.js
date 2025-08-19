@@ -6,7 +6,7 @@ import { generateToken } from '../utils/token.js';
 
 export const registerUser = async (req, res) => {
  try{
-    const {first_name, last_name, phone, password} = req.body;
+    const {firstname, lastname, phone, password , role} = req.body;
 
     const existingUser = await User.findOne({ phone });
     if(existingUser) {
@@ -16,17 +16,19 @@ export const registerUser = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10);
 
       const user = await User.create({
-      firstName: first_name,
-      lastName: last_name,
+      firstName: firstname,
+      lastName: lastname,
       phone,
+      role: role || 'user', 
       passwordHash: hashPassword, 
     });
-    const token = generateToken(user._id);
+    const token = generateToken(user._id , user.role);
 
     res.status(201).json({
         message: 'User registered successfully',
         user: {
             id: user._id,
+            role: user.role,
             token,
         }
 
@@ -53,11 +55,15 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid phone number or password' });
         }
 
-        const token = generateToken(user._id);
+        const token = generateToken(user._id , user.role);
         res.status(200).json({
             message: 'Login successful',
                 user: {
                 id: user._id,
+                role: user.role,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phone: user.phone,
                 token,
                 }
         });
