@@ -1,28 +1,23 @@
 import mongoose from 'mongoose';
 
-const walletTranstion = new mongoose.Schema({
-
-    userid:{
+const walletSchema = new mongoose.Schema({
+    userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-
-    evcBalance:{
+    evcBalance: {
         type: Number,
         default: 0,
     },
-
-    bankbalance:{
-         type: Number,
-         default: 0,
+    bankbalance: {
+        type: Number,
+        default: 0,
     },
-
-    currancy:{
-        type : String,
+    currancy: {
+        type: String,
         default: 'USD',
-
     }
-    }, {timestamps: true});
+}, {timestamps: true});
 
-    export default mongoose.model('WalletTransaction', walletTranstion);
+export default mongoose.model('Wallet', walletSchema);
