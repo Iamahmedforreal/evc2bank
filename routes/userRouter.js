@@ -1,22 +1,20 @@
 import express from 'express';
+import userController from '../controllers/userController.js';
 import { authMiddleware } from '../middleware/auth.js';
-import { authorizeRoles } from '../middleware/authorize.js';
- 
+import { authorizeMiddleware } from '../middleware/authorize.js';
 
-export  const router = express.Router();
+const router = express.Router();
 
-router.get('/profile', authMiddleware, (req, res) => {
+// Admin only: get all users
+router.get('/', authMiddleware, authorizeMiddleware(['admin']), userController.getAllUsers);
 
-    res.status(200).json({
-        id: req.user.id ,
-        role: req.user.role});
+// Users can see their own profile, admins can see anyone
+router.get('/:id', authMiddleware, userController.getUserById);
 
-});
+// Admin only: update user
+router.put('/:id', authMiddleware, authorizeMiddleware(['admin']), userController.updateUser);
 
-router.get('/admin', authMiddleware, authorizeRoles('admin'), (req, res) => {
-    res.status(200).json({message: 'Welcome to the admin area', user: req.user});
-});
-
-
+// Admin only: delete user
+router.delete('/:id', authMiddleware, authorizeMiddleware(['admin']), userController.deleteUser);
 
 export default router;

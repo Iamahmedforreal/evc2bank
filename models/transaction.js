@@ -8,23 +8,35 @@ const transtionSchema = new mongoose.Schema({
     },
     amount: {
         type: Number,
-        required: true,
-
+        required: true
     },
-
+    type: {
+        type: String,
+        enum: ['evc_to_bank', 'bank_to_evc', 'wallet_adjustment'],
+        required: true
+    },
     status: {  
         type: String,
         enum: ['pending', 'completed', 'failed'],
         default: 'pending'
-
     },
-
-    reference:{
+    description: {
+        type: String,
+        required: true
+    },
+    reference: {
         type: String,
         unique: true,
         required: true
-
     },
-    }, {timestamps: true});
+    balanceBefore: {
+        type: Number,
+        required: true
+    },
+    balanceAfter: {
+        type: Number,
+        required: true
+    }
+}, {timestamps: true});
 
     export default mongoose.model('Transaction', transtionSchema);
