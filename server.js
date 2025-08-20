@@ -6,6 +6,7 @@ import errorHandler from './middleware/errorHandling.js';
 import connectMongoDB from './utils/mongodb.js';
 import { NODE_ENV, PORT } from './config/env.js';
 import authRouter from './routes/authRouter.js';
+import userRouter from './routes/userRouter.js';
 
 
 
@@ -19,6 +20,7 @@ app.use(logger);
 
 // Routes
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 
 app.get('/', (req, res) => {
