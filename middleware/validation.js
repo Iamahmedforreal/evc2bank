@@ -43,8 +43,8 @@ export const validateUserRegistration = [
     
     body('role')
         .optional()
-        .isIn(['user', 'admin', 'merchant'])
-        .withMessage('Role must be user, admin, or merchant'),
+        .isIn(['user', 'admin',])
+        .withMessage('Role must be user, admin'),
     
     handleValidationErrors
 ];
