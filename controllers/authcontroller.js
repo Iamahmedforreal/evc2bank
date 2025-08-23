@@ -5,19 +5,24 @@ import { generateToken } from '../utils/token.js';
 
 
 export const registerUser = async (req, res) => {
- try{
-    const {firstname, lastname, phone, password , role} = req.body;
+    try {
+        const { firstName, lastName, phone, password, role } = req.body;
 
-    const existingUser = await User.findOne({ phone });
-    if(existingUser) {
-        return res.status(400).json({ message: 'User already exists' });
-    }
+        // Input validation
+        if (!firstName || !lastName || !phone || !password) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        const existingUser = await User.findOne({ phone });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
 
     const hashPassword = await bcrypt.hash(password, 10);
 
       const user = await User.create({
-      firstName: firstname,
-      lastName: lastname,
+      firstName: firstName,
+      lastName:  lastName,
       phone,
       role: role || 'user', 
       passwordHash: hashPassword, 
@@ -50,8 +55,8 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid phone number or password' });
         }
 
-        const ismatch = await bcrypt.compare(password, user.passwordHash);
-        if(!ismatch) {
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        if(!isMatch) {
             return res.status(400).json({ message: 'Invalid phone number or password' });
         }
 
