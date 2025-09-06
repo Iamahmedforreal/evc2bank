@@ -251,3 +251,17 @@
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📚 API Documentation: http://localhost:4000/api/docs\u001b[39m","timestamp":"2025-09-06 10:46:12:4612"}
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m❤️  Health Check: http://localhost:4000/health\u001b[39m","timestamp":"2025-09-06 10:46:12:4612"}
 {"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mStarting graceful shutdown...\u001b[39m","timestamp":"2025-09-06 10:46:26:4626"}
+{"timestamp":"2025-09-06T14:14:52.440Z","level":"INFO","category":"SERVER","message":"Initializing server startup..."}
+{"timestamp":"2025-09-06T14:14:52.442Z","level":"INFO","category":"SERVER","message":"Attempting database connection..."}
+{"timestamp":"2025-09-06T14:14:52.444Z","level":"DEBUG","category":"PERFORMANCE","message":"Timer started: Database Connection","data":{"startTime":"2025-09-06T14:14:52.443Z"}}
+{"timestamp":"2025-09-06T14:14:52.446Z","level":"INFO","category":"DATABASE","message":"Initializing MongoDB connection..."}
+{"timestamp":"2025-09-06T14:14:52.447Z","level":"INFO","category":"DATABASE","message":"MongoDB URL found, setting connection options..."}
+{"timestamp":"2025-09-06T14:14:52.448Z","level":"INFO","category":"DATABASE","message":"Attempting to connect to MongoDB...","data":{"url":"mongodb://127.0.0.1:27017/test"}}
+{"timestamp":"2025-09-06T14:14:52.497Z","level":"SUCCESS","category":"DATABASE","message":"MongoDB connected successfully","data":{"host":"127.0.0.1","port":27017,"database":"test","readyState":1}}
+{"timestamp":"2025-09-06T14:14:52.498Z","level":"DEBUG","category":"PERFORMANCE","message":"Timer ended: Database Connection","data":{"startTime":"2025-09-06T14:14:52.443Z","endTime":"2025-09-06T14:14:52.498Z","duration":"53ms"}}
+{"timestamp":"2025-09-06T14:14:52.499Z","level":"SUCCESS","category":"DATABASE","message":"Database connected successfully"}
+{"timestamp":"2025-09-06T14:14:52.500Z","level":"INFO","category":"SERVER","message":"Starting HTTP server..."}
+{"timestamp":"2025-09-06T14:14:52.501Z","level":"DEBUG","category":"PERFORMANCE","message":"Timer started: Server Startup","data":{"startTime":"2025-09-06T14:14:52.501Z"}}
+{"timestamp":"2025-09-06T14:14:52.509Z","level":"DEBUG","category":"PERFORMANCE","message":"Timer ended: Server Startup","data":{"startTime":"2025-09-06T14:14:52.501Z","endTime":"2025-09-06T14:14:52.509Z","duration":"7ms"}}
+{"timestamp":"2025-09-06T14:14:52.511Z","level":"SUCCESS","category":"SERVER","message":"Server is running on port 4000 in development mode","data":{"port":"4000","environment":"development","timestamp":"2025-09-06T14:14:52.511Z"}}
+{"timestamp":"2025-09-06T14:14:52.512Z","level":"INFO","category":"ROUTES","message":"Available routes:","data":{"routes":["GET  / - Health check","POST /api/auth/register - User registration","POST /api/auth/login - User login","GET  /api/users - Get all users","GET  /api/wallets - Get wallets","GET  /api/transactions - Get transactions"]}}

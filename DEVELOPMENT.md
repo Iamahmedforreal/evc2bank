@@ -438,3 +438,4 @@ A: Update the enum in the User model and add authorization logic where needed.
 ---
 
 For additional questions or support, please check the main README.md or create an issue in the repository.
+
